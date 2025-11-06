@@ -1,28 +1,29 @@
-import { useState } from 'react'
+import { useCallback } from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import Features from './components/Features';
+import LiveDeals from './components/LiveDeals';
+import AuthPanel from './components/AuthPanel';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const handleGoogle = useCallback((data) => {
+    console.log('Google signed in', data);
+  }, []);
+
+  const handleRegister = useCallback((data) => {
+    console.log('Registered', data);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
+    <div className="min-h-screen w-full bg-white text-slate-900">
+      <Navbar />
+      <Hero onPrimaryAction={handleGoogle} />
+      <Features />
+      <LiveDeals />
+      <AuthPanel onGoogle={handleGoogle} onRegister={handleRegister} />
+      <footer className="py-10 text-center text-sm text-slate-500">© {new Date().getFullYear()} Nebula Trips — Travel beyond limits.</footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
